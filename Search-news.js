@@ -87,3 +87,4 @@ function displayBlog(articles){
         console.error("Error fetching random news", error);
     }
 })();
+app.get('/favicon.ico', (req, res) => res.status(204));

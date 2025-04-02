@@ -4,43 +4,22 @@ const apiKey = 'abd7a937dd2a47f982fa04fd1eae8cf4'; // Your API key
 const bolgcontainer = document.getElementById("bolg-container");
 const searchField = document.getElementById("search-input");
 const searchButton = document.getElementById("search-button");
-function displayBlog(articles) {
-  if (!articles || !Array.isArray(articles)) {
-    console.error('Invalid articles data:', articles);
-    return;
-  }
-  articles.forEach(article => {
-    // ...
-  });
+
+Fetch random news articles (top headlines)
+async function fetchRandomNews(){
+    try{
+        const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=13&apiKey=$abd7a937dd2a47f982fa04fd1eae8cf4{apiKey}`;
+        const response = await fetch(apiUrl);
+        const data = await response.json();
+        return data.articles;
+    }
+    catch (error) {
+        console.error("Error fetching random news", error);
+        return [];
+    }
 }
-// Fetch random news articles (top headlines)
-// async function fetchRandomNews(){
-//     try{
-//         const apiUrl = `https://newsapi.org/v2/top-headlines?country=us&pageSize=13&apiKey=${apiKey}`;
-//         const response = await fetch(apiUrl);
-//         const data = await response.json();
-//         return data.articles;
-//     }
-//     catch (error) {
-//         console.error("Error fetching random news", error);
-//         return [];
-//     }
-// }
-// Example corrected API call:
-fetch('https://newsapi.org/v2/top-headlines?country=us&apiKey=abd7a937dd2a47f982fa04fd1eae8cf4', {
-  headers: {
-    'User-Agent': 'YourApp/1.0',
-    'Accept': 'application/json'
-  }
-})
-.then(response => response.json())
-.then(data => {
-  if(data.articles) {
-    displayBlog(data.articles);
-  } else {
-    console.error('Unexpected API response:', data);
-  }
-})
+Example corrected API call:
+
 
 // Handle search functionality
 searchButton.addEventListener("click", async () => {
@@ -58,7 +37,7 @@ searchButton.addEventListener("click", async () => {
 // Fetch news articles based on the search query
 async function fetchNewsQuery(query){
     try {
-        const apiUrl = `https://newsapi.org/v2/everything?q=${query}&pageSize=13&apiKey=${apiKey}`;
+        const apiUrl = `https://newsapi.org/v2/everything?q=${query}&pageSize=13&apiKey=$abd7a937dd2a47f982fa04fd1eae8cf4{apiKey}`;
         const response = await fetch(apiUrl);
         const data = await response.json();
         return data.articles;
